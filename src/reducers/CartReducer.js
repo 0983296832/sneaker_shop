@@ -96,7 +96,6 @@ const reducer = (state, action) => {
   }
 
   if (action.type === "CLEAR") {
-    window.alert("You have paid ");
     return { ...state, cartItem: [], amount: 0 };
   }
 

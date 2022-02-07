@@ -4,6 +4,7 @@ import CartReducer from "../reducers/CartReducer";
 import AuthReducer from "../reducers/AuthReducer";
 import { auth } from "../config/firebase";
 import { signInWithPopup, GoogleAuthProvider, signOut } from "firebase/auth";
+import { ToastContainer, toast } from "react-toastify";
 
 const AppContext = React.createContext();
 
@@ -54,6 +55,15 @@ const AppProvider = ({ children }) => {
 
   const clearCart = () => {
     dispatch({ type: "CLEAR" });
+    toast.success("🦄 You have paid!", {
+      position: "bottom-right",
+      autoClose: 3000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: false,
+      draggable: true,
+      progress: undefined,
+    });
   };
   useEffect(() => {
     dispatch({ type: "GET_TOTALS" });
@@ -92,7 +102,15 @@ const AppProvider = ({ children }) => {
   const signOutWithGoogle = () => {
     signOut(auth)
       .then(() => {
-        window.alert("Sign out successfully");
+        toast.success("🦄 Logout successfully!", {
+          position: "bottom-right",
+          autoClose: 3000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: false,
+          draggable: true,
+          progress: undefined,
+        });
         dispatchFc({ type: "LOG_OUT" });
         const storageUser = {
           displayName: "",

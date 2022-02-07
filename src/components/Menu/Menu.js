@@ -5,6 +5,7 @@ import { data } from "../data";
 import { Link } from "react-router-dom";
 import { useGlobleContext } from "../../hooks/useGlobal";
 import * as Scroll from "react-scroll";
+import { ToastContainer, toast } from "react-toastify";
 
 export default function Menu() {
   const {
@@ -20,6 +21,20 @@ export default function Menu() {
   const [menuScroll, setMenuScroll] = useState(false);
   const mobileMenu = useRef(null);
   const [showInfo, setShowInfo] = useState(false);
+
+  const loginToast = () => {
+    if (!displayName) {
+      toast.warn("🦄 You have to login firt!", {
+        position: "bottom-right",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: false,
+        draggable: true,
+        progress: undefined,
+      });
+    }
+  };
 
   const changeBackground = () => {
     if (window.scrollY > 200) {
@@ -90,7 +105,7 @@ export default function Menu() {
 
         <div className="nav__shop">
           <Link to="/cart">
-            <BiShoppingBag />
+            <BiShoppingBag onClick={loginToast} />
           </Link>
           <div className="nav__shop-amount">
             <h3 className="nav__shop__amount-number">{amount}</h3>
@@ -116,6 +131,17 @@ export default function Menu() {
           </div>
         )}
       </nav>
+      <ToastContainer
+        position="top-right"
+        autoClose={3000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover={false}
+      />
     </header>
   );
 }
