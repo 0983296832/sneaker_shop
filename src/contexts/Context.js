@@ -4,7 +4,7 @@ import CartReducer from "../reducers/CartReducer";
 import AuthReducer from "../reducers/AuthReducer";
 import { auth } from "../config/firebase";
 import { signInWithPopup, GoogleAuthProvider, signOut } from "firebase/auth";
-import { ToastContainer, toast } from "react-toastify";
+import { toast } from "react-toastify";
 
 const AppContext = React.createContext();
 
@@ -63,6 +63,7 @@ const AppProvider = ({ children }) => {
       pauseOnHover: false,
       draggable: true,
       progress: undefined,
+      theme: "dark",
     });
   };
   useEffect(() => {
@@ -110,6 +111,7 @@ const AppProvider = ({ children }) => {
           pauseOnHover: false,
           draggable: true,
           progress: undefined,
+          theme: "dark",
         });
         dispatchFc({ type: "LOG_OUT" });
         const storageUser = {
