@@ -1,6 +1,7 @@
 import React, { useState, useRef, useEffect } from "react";
 import { BiShoppingBag } from "react-icons/bi";
 import { BiMenu } from "react-icons/bi";
+import { FaTimes } from "react-icons/fa";
 import { data } from "../data";
 import { Link } from "react-router-dom";
 import { useGlobleContext } from "../../hooks/useGlobal";
@@ -20,6 +21,7 @@ export default function Menu() {
   const [menu] = useState(data.dataMenu);
   const [menuScroll, setMenuScroll] = useState(false);
   const mobileMenu = useRef(null);
+  const barMenu = useRef(null);
   const [showInfo, setShowInfo] = useState(false);
 
   const loginToast = () => {
@@ -32,7 +34,7 @@ export default function Menu() {
         pauseOnHover: false,
         draggable: true,
         progress: undefined,
-        theme:"dark"
+        theme: "dark",
       });
     }
   };
@@ -46,13 +48,16 @@ export default function Menu() {
 
   useEffect(() => {
     let handler = (e) => {
-      if (!mobileMenu.current.contains(e.target)) setShowMenu(false);
+      if (!mobileMenu.current.contains(e.target)) {
+        setShowMenu(false);
+      }
     };
+
     document.addEventListener("mousedown", handler);
     return () => {
       document.removeEventListener("mousedown", handler);
     };
-  }, [setShowMenu]);
+  }, [setShowMenu, showMenu]);
 
   return (
     <header
@@ -60,12 +65,16 @@ export default function Menu() {
       id="header"
     >
       <nav className="nav bd-grid">
-        <div className="nav__toggle" id="nav-toggle">
-          <BiMenu
-            onClick={() => {
-              setShowMenu(!showMenu);
-            }}
-          />
+        <div className="nav__toggle" id="nav-toggle" ref={barMenu}>
+          {showMenu ? (
+            <FaTimes />
+          ) : (
+            <BiMenu
+              onClick={() => {
+                setShowMenu(!showMenu);
+              }}
+            />
+          )}
         </div>
 
         <Link to="/" className="nav__logo">
@@ -73,7 +82,7 @@ export default function Menu() {
         </Link>
 
         <div
-          className={`nav__menu ${showMenu && `show`}`}
+          className={`nav__menu ${showMenu ? `show` : ``}`}
           ref={mobileMenu}
           id="nav-menu"
         >
