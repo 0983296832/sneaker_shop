@@ -1,20 +1,19 @@
 import React, { useState } from "react";
 import { BiRightArrowAlt } from "react-icons/bi";
-import { useGlobleContext } from "../../hooks/useGlobal";
+import Filter from "../../components/Filter/Filter";
 import ReactPaginate from "react-paginate";
 import { Link } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 export default function Product() {
-  const { product } = useGlobleContext();
-  // eslint-disable-next-line 
-  const [products, setProducts] = useState(product);
+  const product = useSelector((state) => state.search);
   const [pageNumber, setPageNumber] = useState(0);
   window.scrollTo(0, 0);
 
   const productsPerPage = 10;
   const pagesVisited = pageNumber * productsPerPage;
 
-  const displayProducts = products
+  const displayProducts = product
     .slice(pagesVisited, pagesVisited + productsPerPage)
     .map((item) => {
       return (
@@ -29,7 +28,7 @@ export default function Product() {
         </article>
       );
     });
-  const pageCount = Math.ceil(products.length / productsPerPage);
+  const pageCount = Math.ceil(product.length / productsPerPage);
 
   const changePage = ({ selected }) => {
     setPageNumber(selected);
@@ -39,6 +38,7 @@ export default function Product() {
     <main className="l-main">
       <section className="featured section" id="shop">
         <h2 className="section-title">ALL PRODUCT</h2>
+        <Filter />
         <div className="featured__container bd-grid">{displayProducts}</div>
         <div className="sneaker__pages bd-grid">
           <ReactPaginate
@@ -53,15 +53,6 @@ export default function Product() {
             activeClassName={"paginationActive"}
           />
         </div>
-        {/* <div className="sneaker__pages bd-grid">
-                <div className="sneaker__pages-container">
-                    <span className="sneaker__pag">1</span>
-                    <span className="sneaker__pag">2</span>
-                    <span className="sneaker__pag">3</span>
-                    <span className="sneaker__pag">4</span>
-                    <span className="sneaker__pag">→</span>
-                </div>
-                </div> */}
       </section>
     </main>
   );

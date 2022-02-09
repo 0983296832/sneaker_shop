@@ -30,10 +30,13 @@ export default function Cart() {
         })}
       </main>
       <hr className="cbd-grid" style={{ marginBottom: "2rem" }}></hr>
-      <div className="ccart__total cbd-grid">
-        <h1 className="ctitle-shop">total</h1>
-        <h1>${total}</h1>
-        <Link href="#home" className="button" onClick={clearCart}>
+      <div className="ccart__total cbd-grid colunm">
+        <div>
+          <h1 className="ctitle-shop">
+            total : <span style={{ marginLeft: "10px" }}>${total}</span>
+          </h1>
+        </div>
+        <Link href="#home" className="button checkout-btn" onClick={clearCart}>
           Check out
         </Link>
       </div>

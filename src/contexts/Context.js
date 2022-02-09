@@ -25,6 +25,8 @@ const UserState = {
   photoURL: "",
 };
 
+
+
 const AppProvider = ({ children }) => {
   const [showMenu, setShowMenu] = useState(false);
   const [state, dispatch] = useReducer(CartReducer, CartState, () => {
@@ -72,7 +74,6 @@ const AppProvider = ({ children }) => {
   }, [state.cartItem]); // eslint-disable-line react-hooks/exhaustive-deps
 
   useEffect(() => {
-    console.log(localStorage);
     const localStorageItem = localStorage.getItem(LOCAL_STORAGE_CART_KEY);
     if (localStorageItem) {
       const cartItem = JSON.parse(localStorageItem);

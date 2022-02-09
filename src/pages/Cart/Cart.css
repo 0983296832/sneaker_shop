@@ -84,17 +84,10 @@ hr {
 .ctitle-shop {
   position: relative;
   margin: 5rem 2.5rem;
+  font-size: 1.5rem
 }
 
-.ctitle-shop::after {
-  content: "";
-  position: absolute;
-  top: 50%;
-  width: 72px;
-  height: 2px;
-  background-color: var(--dark-color);
-  margin-left: 0.25rem;
-}
+
 
 /*-- COMPONENT --*/
 
@@ -206,4 +199,16 @@ article {
     margin-left: auto;
     margin-right: auto;
   }
+}
+
+
+@media screen and (max-width: 531px) {
+  body {
+    margin: 4rem 0 0 0;
+  }
+  .colunm {
+    display:flex;
+    flex-direction: column;
+  }
+  
 }
