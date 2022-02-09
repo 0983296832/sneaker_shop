@@ -27,24 +27,26 @@ function Filter() {
   return (
     <div className="filter">
       <div className="filter_search">
-        <input
-          type="text"
-          className="search_input"
-          placeholder="Search..."
-          onChange={(e) => setSearchText(e.target.value)}
-          value={searchText}
-        />
-        <button
-          type="button"
-          className="button btn-search"
-          onClick={() => {
-            dispatch(searchByType(searchText));
-            setSearchText("");
-            setFilterText("");
-          }}
-        >
-          Search
-        </button>
+        <form>
+          <input
+            type="text"
+            className="search_input"
+            placeholder="Search..."
+            onChange={(e) => setSearchText(e.target.value)}
+            value={searchText}
+          />
+          <button
+            type="submit"
+            className="button btn-search"
+            onClick={() => {
+              dispatch(searchByType(searchText));
+              setSearchText("");
+              setFilterText("");
+            }}
+          >
+            Search
+          </button>
+        </form>
       </div>
       <div className="filter_buttons">
         {uniqueCategory.map((item, index) => {
