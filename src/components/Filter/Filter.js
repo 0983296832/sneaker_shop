@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import "./Filter.css";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { searchByType, filter } from "../../redux/searchAction";
 import { data } from "../data";
 
@@ -38,10 +38,11 @@ function Filter() {
           <button
             type="submit"
             className="button btn-search"
-            onClick={() => {
+            onClick={(e) => {
+              e.preventDefault();
               dispatch(searchByType(searchText));
               setSearchText("");
-              setFilterText("");
+              // setFilterText("");
             }}
           >
             Search

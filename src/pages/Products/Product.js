@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { BiRightArrowAlt } from "react-icons/bi";
 import Filter from "../../components/Filter/Filter";
 import ReactPaginate from "react-paginate";
@@ -7,13 +7,16 @@ import { useSelector } from "react-redux";
 
 export default function Product() {
   const product = useSelector((state) => state.search);
+  console.log(product);
   const [pageNumber, setPageNumber] = useState(0);
-  window.scrollTo(0, 0);
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
 
   const productsPerPage = 10;
   const pagesVisited = pageNumber * productsPerPage;
 
-  const displayProducts = product
+  const displayProducts = product.productView
     .slice(pagesVisited, pagesVisited + productsPerPage)
     .map((item) => {
       return (
@@ -22,13 +25,12 @@ export default function Product() {
           <span className="sneaker__name">{item.productName}</span>
           <span className="sneaker__price">${item.productPrice}</span>
           <Link to={`/product/${item.productId}`} className="button-light">
-            {" "}
             Add to cart <BiRightArrowAlt />
           </Link>
         </article>
       );
     });
-  const pageCount = Math.ceil(product.length / productsPerPage);
+  const pageCount = Math.ceil(product.productView.length / productsPerPage);
 
   const changePage = ({ selected }) => {
     setPageNumber(selected);

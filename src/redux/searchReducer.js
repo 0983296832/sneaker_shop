@@ -2,35 +2,54 @@ import { data } from "../components/data";
 
 const initialState = {
   product: data.dataProduct,
-  search: "",
-  filter: "",
-  productfilter: [],
+  searchText: "",
+  filterText: "",
+  productFilter: [],
+  productSearch: [],
+  productView: [],
 };
 const searchReducer = (state = initialState, action) => {
-  switch (action.type) {
-    case "SEARCH":
-      if (action.payload.text === "") {
-        return action.payload.data;
-      }
-      const searchProduct = action.payload.data.filter((item) =>
-        item.productName
-          .toLowerCase()
-          .includes(action.payload.text.toLowerCase())
-      );
-      state.productfilter = searchProduct;
-      return state.productfilter;
-    case "FILTER":
-      if (action.payload.text === "All") {
-        return action.payload.data;
-      } else {
-        const filterProduct = action.payload.data.filter(
-          (item) => item.productCatalog === action.payload.text
-        );
-        return filterProduct;
-      }
-    default:
-      return state.product;
+  if (action.type === "SEARCH") {
+    if (action.payload.text === "") {
+      return {
+        ...state,
+        productSearch: action.payload.data,
+        productView: action.payload.data,
+        searchText: action.payload.text,
+      };
+    }
+    const searchProduct = action.payload.data.filter((item) =>
+      item.productName.toLowerCase().includes(action.payload.text.toLowerCase())
+    );
+    state.productSearch = searchProduct;
+    return {
+      ...state,
+      productSearch: searchProduct,
+      productView: searchProduct,
+      searchText: action.payload.text,
+    };
   }
+  if (action.type === "FILTER") {
+    if (action.payload.text === "All" || action.payload.text === "") {
+      return {
+        ...state,
+        productFilter: action.payload.data,
+        productView: action.payload.data,
+        filterText: action.payload.text,
+      };
+    } else {
+      const filterProduct = action.payload.data.filter(
+        (item) => item.productCatalog === action.payload.text
+      );
+      return {
+        ...state,
+        productFilter: filterProduct,
+        productView: filterProduct,
+        filterText: action.payload.text,
+      };
+    }
+  }
+  return initialState;
 };
 
 export default searchReducer;
