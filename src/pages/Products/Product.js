@@ -7,7 +7,6 @@ import { useSelector } from "react-redux";
 
 export default function Product() {
   const product = useSelector((state) => state.search);
-  console.log(product);
   const [pageNumber, setPageNumber] = useState(0);
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -41,7 +40,13 @@ export default function Product() {
       <section className="featured section" id="shop">
         <h2 className="section-title">ALL PRODUCT</h2>
         <Filter />
-        <div className="featured__container bd-grid">{displayProducts}</div>
+        <div className="featured__container bd-grid">
+          {product.productView.length > 0 ? (
+            displayProducts
+          ) : (
+            <h1 className="cbd-grid ">No products found</h1>
+          )}
+        </div>
         <div className="sneaker__pages bd-grid">
           <ReactPaginate
             previousLabel={"Previous"}

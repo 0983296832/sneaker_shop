@@ -22,7 +22,7 @@ function Filter() {
 
   useEffect(() => {
     dispatch(filter(filterText));
-  }, [filterText, dispatch]);
+  }, []);
 
   return (
     <div className="filter">
@@ -41,8 +41,8 @@ function Filter() {
             onClick={(e) => {
               e.preventDefault();
               dispatch(searchByType(searchText));
+              setFilterText("");
               setSearchText("");
-              // setFilterText("");
             }}
           >
             Search
@@ -61,6 +61,7 @@ function Filter() {
               onClick={() => {
                 setFilterText(item);
                 setActive(index);
+                dispatch(filter(item));
               }}
             >
               {item}

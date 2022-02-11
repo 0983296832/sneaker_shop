@@ -17,17 +17,21 @@ const searchReducer = (state = initialState, action) => {
         productView: action.payload.data,
         searchText: action.payload.text,
       };
+    } else {
+      const searchProduct = action.payload.data.filter((item) =>
+        item.productName
+          .toLowerCase()
+          .includes(action.payload.text.toLowerCase())
+      );
+      console.log(searchProduct);
+      state.productSearch = searchProduct;
+      return {
+        ...state,
+        productSearch: searchProduct,
+        productView: searchProduct,
+        searchText: action.payload.text,
+      };
     }
-    const searchProduct = action.payload.data.filter((item) =>
-      item.productName.toLowerCase().includes(action.payload.text.toLowerCase())
-    );
-    state.productSearch = searchProduct;
-    return {
-      ...state,
-      productSearch: searchProduct,
-      productView: searchProduct,
-      searchText: action.payload.text,
-    };
   }
   if (action.type === "FILTER") {
     if (action.payload.text === "All" || action.payload.text === "") {
